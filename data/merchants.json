@@ -1,0 +1,18 @@
+[
+  {
+    "id": "merchant1",
+    "name": "Acme Corp",
+    "balance": 10000,
+    "email": "sales@acme.com",
+    "address": "789 Elm St, Anytown USA",
+    "public_key": "AAAAB3NzaC1yc2EAAAADAQABAAABAQC+sXpmrGyJ+h8pK0+0tFJH+7VZzeJ2cetKugJxemxXtw+KnWlNQFv7dwTp5wNOD5z5W/gJ8dHX7nJnCKLvX9H/4U6dRv6V1MTmz4m4bWUp3ruiaAG47bMYC6QX9S70+C8WJ7bFvz0u5jK1+J8W1H0WWvObzkxP7kK9y8lU6JGv6BjK/d4A4q3WqOayJ1KjOxS9X9q3m+qlm/FNJQ05zxtsTnJ+TnZGKAFRkmM/vrJrXr30SBpw00n+HtFJRXt7/LlNLQizZ97Kj+LemxJxTpF9g8DduWzLpCefMcPxFzvxEBiQ2tWjK0d0NGxg9vh1X3LtJJLHnr1cRL"
+  },
+  {
+    "id": "merchant2",
+    "name": "XYZ Company",
+    "balance": 5000,
+    "email": "sales@xyz.com",
+    "address": "321 Oak St, Anytown USA",
+    "public_key": "AAAAB3NzaC1yc2EAAAADAQABAAABAQC+sXpmrGyJ+h8pK0+0tFJH+7VZzeJ2cetKugJxemxXtw+KnWlNQFv7dwTp5wNOD5z5W/gJ8dHX7nJnCKLvX9H/4U6dRv6V1MTmz4m4bWUp3ruiaAG47bMYC6QX9S70+C8WJ7bFvz0u5jK1+J8W1H0WWvObzkxP7kK9y8lU6JGv6BjK/d4A4q3WqOayJ1KjOxS9X9q3m+qlm/FNJQ05zxtsTnJ+TnZGKAFRkmM/vrJrXr30SBpw00n+HtFJRXt7/LlNLQizZ97Kj+LemxJxTpF9g8DduWzLpCefMcPxFzvxEBiQ2tWjK0d0NGxg9vh1X3LtJJLHnr1cRL"
+  }
+]

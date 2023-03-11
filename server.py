@@ -1,34 +1,53 @@
+import payment_gateway
 import socket
-import os
-from _thread import *
-
-ServerSocket = socket.socket()
-host = '127.0.0.1'
-port = 1233
-ThreadCount = 0
-try:
-    ServerSocket.bind((host, port))
-except socket.error as e:
-    print(str(e))
-
-print('Waitiing for a Connection..')
-ServerSocket.listen(5)
+import pickle
 
 
-def threaded_client(connection):
-    connection.send(str.encode('Welcome to the Servern'))
-    while True:
-        data = connection.recv(2048)
-        reply = 'Server Says: ' + data.decode('utf-8')
-        if not data:
-            break
-        connection.sendall(str.encode(reply))
-    connection.close()
+# Server component
+class Server:
+    def __init__(self, host, port):
+        self.host = host
+        self.port = port
 
-while True:
-    Client, address = ServerSocket.accept()
-    print('Connected to: ' + address[0] + ':' + str(address[1]))
-    start_new_thread(threaded_client, (Client, ))
-    ThreadCount += 1
-    print('Thread Number: ' + str(ThreadCount))
-ServerSocket.close()
+    def run(self):
+        # Listen for incoming connections
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.bind((self.host, self.port))
+            s.listen()
+
+            while True:
+                print("Waiting for client connection...")
+                conn, addr = s.accept()
+
+                with conn:
+                    print(f"Client {addr[0]}:{addr[1]} connected")
+
+                    # Receive data from client
+                    data = conn.recv(1024)
+
+                    if not data:
+                        continue
+
+                    # Deserialize transaction object
+                    transaction = pickle.loads(data)
+
+                    # Process transaction
+                    success = payment_gateway.pg.create_transaction(transaction["customer_id"], transaction["merchant_id"],
+                                                         transaction["product_id"])
+
+                    # Create response object
+                    response = {"result": success}
+
+                    # Serialize response object
+                    response_data = pickle.dumps(response)
+
+                    # Send response to client
+                    conn.sendall(response_data)
+
+
+if __name__ == "__main__":
+    # Create server object
+    server = Server("localhost", 12345)
+
+    # Run server
+    server.run()

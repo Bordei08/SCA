@@ -1,0 +1,18 @@
+[
+  {
+    "id": "customer1",
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "address": "123 Main St, Anytown USA",
+    "balance": 1000,
+    "public_key": "AAAAB3NzaC1yc2EAAAADAQABAAABAQDK4LXJvaZUbOQ2Iz0ZJbKqgBcO5b5l7H/hALtSq5g5KzYbiYdy96KjWw1F+DZgGkzdJjQHckhsMTy/3vX9CeyT96o6Jm21m+ZrQm/YCrPIjgmfJztPXW6E8m6UAKjTtsT6AfpJZw8If2rUK0BfKj6tkLUb6C8U6M9UOJxtzLsvjKwW8eE+Ogs/FyFF/A2j1QgWcKVq3+duHnsI/woeHX1nnpbJi3LFXwgIbHcnSWBixx5x1C5K5YzY1I5V7MYu8ZYnSd7n0+4ddoV7mMy4y4QnXZB/dSdReA7uYzvoK0+Vux0CK4xl4XVifUpktk31+7KwZq3J/tg0+1KjH"
+  },
+  {
+    "id": "customer2",
+    "name": "Jane Smith",
+    "email": "jane.smith@example.com",
+    "address": "456 Oak St, Anytown USA",
+    "balance": 500,
+    "public_key": "AAAAB3NzaC1yc2EAAAADAQABAAABAQC6+lPGU8WAGiFx1wTmLVlXYdYxxaG8CQzZo0X/9v1fHtxB8+jEZqNwSZ1yL0xrcoN6W8o3qCULowhxzSmIcyHtP5d5QbiwFbRNNR4HlSo4L8FTZfJzX9ljB2QV7AODFOcKMyV7bhgjdlRKdV7bI8p6qxgU6eknZpW8EiKsU6ObLmmnTbfyJGnTGiDwy2e9M9mpMx2rW8/wsa+jrUb68cvUhKrLdfw3MWi8cEYJYX9z5OgqXdPM5d5uv5S5zeR/xCJyShQO4wbHzI4L4X9BtxZfdxRp78/8mrBA/ZM2oApu+nKjV0L0NpbdN+7ifXOhZzIQ="
+  }
+]

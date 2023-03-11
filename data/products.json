@@ -1,0 +1,14 @@
+[
+  {
+  "id": "product2",
+  "name": "TV",
+  "description": "4K TV of 50 inches",
+  "price": 600
+  },
+  {
+  "id": "product1",
+  "name": "Apple",
+  "description": "Food item",
+  "price": 4
+}
+]
