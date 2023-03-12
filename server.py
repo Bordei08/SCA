@@ -32,8 +32,8 @@ class Server:
                     transaction = pickle.loads(data)
 
                     # Process transaction
-                    success = payment_gateway.pg.create_transaction(transaction["customer_id"], transaction["merchant_id"],
-                                                         transaction["product_id"])
+                    success = payment_gateway.get_payment_gateway().create_transaction(transaction["customer_id"], transaction["merchant_id"],
+                                                         transaction["product_id"], transaction["quantity"])
 
                     # Create response object
                     response = {"result": success}
