@@ -2,12 +2,82 @@
 import pickle
 import socket
 import payment_gateway
+import json
+import base64
+import os
+from Crypto.Cipher import AES
+import AESkey
+import rsa
+from Crypto.PublicKey import RSA
+from Crypto.Cipher import PKCS1_OAEP
+from Crypto.Hash import SHA256
+from Crypto.Signature import pkcs1_15
+from Crypto.Hash import SHA256
+from Crypto.Signature import pkcs1_15
 
 # Connect to server
 s = socket.socket()
 host = "localhost"
 port = 12345
 s.connect((host, port))
+
+
+AESkey = base64.b64decode(os.environ.get('AESkey'))
+key = RSA.generate(2048)
+private_key = key.export_key()
+public_key = key.publickey().export_key()
+with open('./data/private_keyC.pem', 'wb') as f:
+    f.write(private_key)
+
+with open('./data/public_keyC.pem', 'wb') as f:
+     f.write(public_key)    
+
+with open('./data/public_key.pem', 'rb') as f:
+    pem_public_key = f.read()
+
+publickeyM = RSA.import_key(pem_public_key)
+cipherKPubM = PKCS1_OAEP.new(publickeyM)
+
+data  = pickle.dumps(b'./data/public_keyC.pem')
+cipher = AES.new(AESkey, AES.MODE_EAX)
+ciphertext, tag = cipher.encrypt_and_digest(data)
+nonce = cipher.nonce
+
+msg = nonce + tag + ciphertext
+
+msg = cipherKPubM.encrypt(msg)
+
+
+s.send(pickle.dumps(base64.b64encode(msg).decode('utf-8')))
+
+response = s.recv(1024)
+received_data = pickle.loads(response)
+
+
+with open('./data/private_keyC.pem',  'rb') as f:
+    pem_private_key = f.read()
+private_key = RSA.import_key(pem_private_key)
+cipherKPrvC = PKCS1_OAEP.new(private_key)
+
+sid = cipherKPrvC.decrypt(bytes.fromhex(received_data['sid'])).decode()
+
+
+hash_object = SHA256.new(sid.encode())
+
+
+signature = received_data['signature']
+
+
+with open('./data/public_key.pem', 'rb') as f:
+    pem_public_key = f.read()
+
+publickeyM = RSA.import_key(pem_public_key)
+
+try:
+    pkcs1_15.new(publickeyM ).verify(hash_object, signature)
+    print("The signature is valid.")
+except (ValueError, TypeError):
+    print("The signature is invalid.")
 
 # Send transaction request to server
 request = {
@@ -51,6 +121,66 @@ s = socket.socket()
 host = "localhost"
 port = 12345
 s.connect((host, port))
+
+
+
+AESkey = base64.b64decode(os.environ.get('AESkey'))
+key = RSA.generate(2048)
+private_key = key.export_key()
+public_key = key.publickey().export_key()
+with open('./data/private_keyC.pem', 'wb') as f:
+    f.write(private_key)
+
+with open('./data/public_keyC.pem', 'wb') as f:
+     f.write(public_key)    
+
+with open('./data/public_key.pem', 'rb') as f:
+    pem_public_key = f.read()
+
+publickeyM = RSA.import_key(pem_public_key)
+cipherKPubM = PKCS1_OAEP.new(publickeyM)
+
+data  = pickle.dumps(b'./data/public_keyC.pem')
+cipher = AES.new(AESkey, AES.MODE_EAX)
+ciphertext, tag = cipher.encrypt_and_digest(data)
+nonce = cipher.nonce
+
+msg = nonce + tag + ciphertext
+
+msg = cipherKPubM.encrypt(msg)
+
+
+s.send(pickle.dumps(base64.b64encode(msg).decode('utf-8')))
+
+response = s.recv(1024)
+received_data = pickle.loads(response)
+
+
+with open('./data/private_keyC.pem',  'rb') as f:
+    pem_private_key = f.read()
+private_key = RSA.import_key(pem_private_key)
+cipherKPrvC = PKCS1_OAEP.new(private_key)
+
+sid = cipherKPrvC.decrypt(bytes.fromhex(received_data['sid'])).decode()
+
+
+hash_object = SHA256.new(sid.encode())
+
+
+signature = received_data['signature']
+
+
+with open('./data/public_key.pem', 'rb') as f:
+    pem_public_key = f.read()
+
+publickeyM = RSA.import_key(pem_public_key)
+
+try:
+    pkcs1_15.new(publickeyM ).verify(hash_object, signature)
+    print("The signature is valid.")
+except (ValueError, TypeError):
+    print("The signature is invalid.")
+
 
 # Send transaction request to server
 request = {
